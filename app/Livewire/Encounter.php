@@ -39,7 +39,7 @@ public function loadUserPokeballs()
 }
 public function loadRandomPokemon()
 {
-    $response = Http::get('http://127.0.0.1:8001/pokemon');
+    $response = Http::withoutVerifying()->get('https://pokemonapi.mikecandeago.fr/pokemon');
     $pokemons = $response->json();
     $this->pokemon = collect($pokemons)->random();
 

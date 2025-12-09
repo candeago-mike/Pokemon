@@ -15,6 +15,9 @@ class Encounter extends Component
 public $selectedPokeballId = null;
 public $userPokeballs = [];
 public $computedChances = [];
+protected $listeners = [
+    'animation-finished' => 'animationFinished',
+];
 
 public function mount()
 {
@@ -42,6 +45,8 @@ public function loadRandomPokemon()
     $response = Http::withoutVerifying()->get('https://pokemonapi.mikecandeago.fr/pokemon');
     $pokemons = $response->json();
     $this->pokemon = collect($pokemons)->random();
+$this->dispatch('pokemon-updated', name: $this->pokemon['name']);
+
 
     $this->updateChances();
 }
@@ -69,6 +74,11 @@ public function updateChances()
         }
 
     }
+}
+public function animationFinished()
+{
+    // Maintenant seulement, on charge un nouveau Pokémon
+    $this->loadRandomPokemon();
 }
 
 public function capture()
@@ -112,8 +122,12 @@ public function capture()
         }
 
         $this->message = "🎉 Tu as capturé " . $this->pokemon['name'] . " !";
+        $this->dispatch('message-updated', text: $this->message);
+
     } else {
         $this->message = "😢 Oh non ! Le Pokémon s’est échappé...";
+        $this->dispatch('message-updated', text: $this->message);
+
     }
 
     // Décrémenter la Pokéball utilisée

@@ -1,3 +1,165 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+    /* font-family: "Tomorrow", sans-serif; */
+    margin: 0;
+    padding: 0;
+}
+
+.background {
+    background-image: url(medias/dan-kent-battle-background-2.jpg);
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: right center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.pokemon {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    bottom: 40%;
+    right: 20%;
+}
+.pokemon a {
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.pokemon img {
+    width: 100%;
+    height: auto;
+}
+
+/* ACTIONS CONTAINER */
+
+.actions {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 40px; /* espace entre pokeballs */
+    z-index: 1;
+}
+
+.actions > a {
+    width: 80px;
+    height: 40px; /* fixe pour avoir un vrai centre */
+    position: relative; /* repère pour sa pokeball */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pokeball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* centre visuel */
+    pointer-events: none;
+}
+
+.pokeball-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+/* couleurs comme avant */
+
+.pokeball-classique .pokeball,
+.pokeball-classique .pokeball-button {
+    background-color: red;
+}
+
+.pokeball-super .pokeball,
+.pokeball-super .pokeball-button {
+    background-color: blue;
+}
+.pokeball-hyper .pokeball,
+.pokeball-hyper .pokeball-button {
+    background-color: yellow;
+}
+.pokeball-master .pokeball,
+.pokeball-master .pokeball-button {
+    background: green;
+}
+
+.pokeball-classique,
+.pokeball-super,
+.pokeball-hyper,
+.pokeball-master {
+    width: 80px;
+    height: auto;
+    position: relative;
+    cursor: pointer;
+}
+
+/* TEXT TYPING */
+.text-typing-container {
+    background-color: #16506a; /* bleu intérieur */
+    min-width: 50%;
+    height: 100px;
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    box-sizing: border-box;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 2;
+    opacity: 1;
+    border: 4px solid white;
+    outline: 8px solid #c9a64b; /* bordure extérieure */
+    outline-offset: 0; /* espace entre les deux, à ajuster (+ ou -) */
+    cursor: pointer;
+}
+
+.wrapper {
+    display: flex;
+}
+
+#text-typing {
+    font-size: 28px;
+    padding: 0px 20px;
+}
+
+.triangle-text {
+    width: 25px;
+    height: auto;
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+    fill: white;
+    transform: rotate(180deg);
+}

@@ -22,7 +22,7 @@
 <body class="bg-gray-100 text-gray-900">
 
     <!-- HEADER -->
-    <header class="bg-white shadow p-4 mb-6">
+    <header class="bg-gray-300 bg-opacity-80 shadow p-4 ">
         <h1 class="text-2xl font-bold">Pokédex</h1>
         @auth
     <livewire:pokeball-counter />

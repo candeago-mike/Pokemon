@@ -15,9 +15,7 @@ class Encounter extends Component
 public $selectedPokeballId = null;
 public $userPokeballs = [];
 public $computedChances = [];
-protected $listeners = [
-    'animation-finished' => 'animationFinished',
-];
+
 
 public function mount()
 {
@@ -55,6 +53,10 @@ public function updatedSelectedPokeballId()
 {
     $this->updateChances();
 }
+public function selectPokeball($id)
+{
+    $this->selectedPokeballId = $id;
+}
 
 public function updateChances()
 {
@@ -76,11 +78,6 @@ public function updateChances()
     }
 }
 
-public function animationFinished()
-{
-    // Maintenant seulement, on charge un nouveau Pokémon
-    $this->loadRandomPokemon();
-}
 
 public function capture()
 {
@@ -122,20 +119,11 @@ public function capture()
             $user->coins += 50;
         }
 
-        $this->message = "Bravo ! Tu as capturé " . $this->pokemon['name'] . " !";
-        $this->dispatch('message-updated', [
-            'text'    => $this->message,
-            'success' => true,
-            'name'    => $this->pokemon['name'],
-        ]);
+        $this->message = "🎉 Tu as capturé " . $this->pokemon['name'] . " !";
 
     } else {
-        $this->message = "Oh non ! Le Pokémon s’est échappé...";
-         $this->dispatch('message-updated', [
-            'text'    => $this->message,
-            'success' => false,
-            'name'    => $this->pokemon['name'],
-        ]);
+        $this->message = "😢 Oh non ! Le Pokémon s’est échappé...";
+
     }
 
     // Décrémenter la Pokéball utilisée

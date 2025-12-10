@@ -1,9 +1,9 @@
 <div class="flex flex-col items-center justify-center mt-10">
-    <!-- <div class="background"></div> -->
+    <div class="background"></div>
     @if($pokemon)
     <div class="text-typing-container">
       <div class="wrapper">
-        <span id="text-typing"></span>
+        <span  wire:ignore id="text-typing"></span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 100 100"
@@ -15,7 +15,7 @@
     </div>
             <div class="pokemon">
                 <a href="#" class="pokemon-link">
-                <img src="{{ $pokemon['sprite'] }}" alt="{{ $pokemon['name'] }}" />
+                <img wire:click="capture" src="{{ $pokemon['sprite'] }}" alt="{{ $pokemon['name'] }}" />
                 </a>
             </div>
 
@@ -34,15 +34,33 @@
         <p class="mt-4 text-xl font-bold text-center">{{ $message }}</p>
     @endif
 
-<label>Choisir une Pokéball :</label>
-<select wire:model="selectedPokeballId">
+<label class="block mb-2 font-semibold">Choisir une Pokéball :</label>
+
+<div class="actions grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
     @foreach($userPokeballs as $id => $ball)
-        <option value="{{ $id }}">
-            {{ $ball['name'] }} ({{ $ball['quantity'] }}) 
-            — Chance : {{ $computedChances[$id] ?? 0 }}%
-        </option>
+        <a 
+            wire:click.prevent="selectPokeball({{ $id }})"
+            class="block p-4 rounded-xl cursor-pointer bg-white"
+        >
+            <div class="flex items-center gap-3">
+
+                <img 
+                    src="{{ asset('images/' . $ball['name'] . '.png') }}" 
+                    alt="{{ $ball['name'] }}"
+                    class="pokeball w-12 h-12"
+                >
+
+                <div>
+                    <p>{{ $ball['quantity'] }}</p>
+                    <p>{{ $computedChances[$id] ?? 0 }}%</p>
+                </div>
+            </div>
+        </a>
     @endforeach
-</select>
+</div>
+
+
+
 
 <script>
     let currentPokemonName = "{{ $pokemon['name'] ?? '' }}";

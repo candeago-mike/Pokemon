@@ -45,7 +45,7 @@ public function loadRandomPokemon()
     $response = Http::withoutVerifying()->get('https://pokemonapi.mikecandeago.fr/pokemon');
     $pokemons = $response->json();
     $this->pokemon = collect($pokemons)->random();
-$this->dispatch('pokemon-updated', name: $this->pokemon['name']);
+    $this->dispatch('pokemon-updated', name: $this->pokemon['name']);
 
 
     $this->updateChances();
@@ -75,6 +75,7 @@ public function updateChances()
 
     }
 }
+
 public function animationFinished()
 {
     // Maintenant seulement, on charge un nouveau Pokémon
@@ -121,13 +122,20 @@ public function capture()
             $user->coins += 50;
         }
 
-        $this->message = "🎉 Tu as capturé " . $this->pokemon['name'] . " !";
-        $this->dispatch('message-updated', text: $this->message);
+        $this->message = "Bravo ! Tu as capturé " . $this->pokemon['name'] . " !";
+        $this->dispatch('message-updated', [
+            'text'    => $this->message,
+            'success' => true,
+            'name'    => $this->pokemon['name'],
+        ]);
 
     } else {
-        $this->message = "😢 Oh non ! Le Pokémon s’est échappé...";
-        $this->dispatch('message-updated', text: $this->message);
-
+        $this->message = "Oh non ! Le Pokémon s’est échappé...";
+         $this->dispatch('message-updated', [
+            'text'    => $this->message,
+            'success' => false,
+            'name'    => $this->pokemon['name'],
+        ]);
     }
 
     // Décrémenter la Pokéball utilisée
@@ -143,11 +151,7 @@ public function capture()
     // Recharger l’inventaire
     $this->loadUserPokeballs();
 
-    // Charger un nouveau Pokémon après capture
-    $this->loadRandomPokemon();
 }
-
-
 
     public function render()
     {

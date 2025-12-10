@@ -22,12 +22,16 @@
 <body class="bg-gray-100 text-gray-900">
 
     <!-- HEADER -->
-    <header class="bg-gray-300 bg-opacity-80 shadow p-4 ">
-        <h1 class="text-2xl font-bold">Pokédex</h1>
+    <header class="p-4 ">
+    <div>
+        <a href="{{route('shop')}}" class="p-4 text-xl font-bold">Shop</a>
+    </div>        
+    <div>
+        <a href="{{route('my-pokemons')}}" class="p-4 text-xl font-bold">Pokédex</a>
+    </div>
         @auth
-    <livewire:pokeball-counter />
-    <livewire:piece-count />
-@endauth
+        <livewire:piece-count />
+        @endauth
     </header>
 
 

@@ -5,7 +5,7 @@ use App\Livewire\Pokemons;
 use App\Livewire\Encounter;
 use App\Livewire\MyPokemons;
 
-Route::get('/my-pokemons', MyPokemons::class)->middleware('auth');
+Route::get('/my-pokemons', MyPokemons::class)->middleware('auth')->name('my-pokemons');
 
 Route::view('/', 'welcome');
 
@@ -17,9 +17,9 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('/pokemons', Pokemons::class)->middleware('auth');
+Route::get('/pokemons', Pokemons::class)->middleware('auth')->name('pokemons');
 
-Route::get('/encounter', Encounter::class)->middleware('auth');
+Route::get('/encounter', Encounter::class)->middleware('auth')->name('encounter');
 
 Route::get('/shop', \App\Livewire\Shop::class)->middleware('auth')->name('shop');
 

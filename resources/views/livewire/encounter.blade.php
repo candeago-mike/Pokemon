@@ -14,7 +14,7 @@
       </div>
     </div>
         <div class="pokemon">
-            <a href="#" class="pokemon-link">
+            <a class="pokemon-link">
             <img wire:click="capture" src="{{ $pokemon['sprite'] }}" alt="{{ $pokemon['name'] }}" />
             </a>
         </div>

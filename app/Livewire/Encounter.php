@@ -15,7 +15,9 @@ class Encounter extends Component
 public $selectedPokeballId = null;
 public $userPokeballs = [];
 public $computedChances = [];
-
+protected $listeners = [
+    'animation-finished' => 'animationFinished',
+];
 
 public function mount()
 {
@@ -48,6 +50,8 @@ public function loadRandomPokemon()
 
     $this->updateChances();
 }
+
+
 
 public function updatedSelectedPokeballId()
 {
@@ -119,12 +123,17 @@ public function capture()
             $user->coins += 50;
         }
 
-        $this->message = "🎉 Tu as capturé " . $this->pokemon['name'] . " !";
+        $this->message = "Bravo ! Tu as capturé " . $this->pokemon['name'] . " !";
 
     } else {
-        $this->message = "😢 Oh non ! Le Pokémon s’est échappé...";
+        $this->message = "Oh non ! Le Pokémon s’est échappé...";
 
     }
+
+    // cet event sert juste à dire au JS d’afficher $message
+    $this->dispatch('encounter-show-message', [
+        'message' => $this->message,
+    ]);
 
     // Décrémenter la Pokéball utilisée
     $user->pokeballs()->updateExistingPivot($this->selectedPokeballId, [
@@ -139,6 +148,16 @@ public function capture()
     // Recharger l’inventaire
     $this->loadUserPokeballs();
 
+}
+
+
+public function animationFinished()
+{
+    // on efface le message pour ne plus le rerendre dans le Blade
+    $this->message = null;
+
+    // puis on charge un nouveau Pokémon
+    $this->loadRandomPokemon();
 }
 
     public function render()

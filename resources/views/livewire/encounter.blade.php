@@ -1,6 +1,11 @@
-<div class="flex flex-col items-center justify-center mt-10">
+<div class="flex flex-col items-center justify-center mt-10"
+    id="encounter-root"
+    data-pokemon-name="{{ $pokemon['name'] ?? '' }}">
+    
     <div class="background"></div>
+    
     @if($pokemon)
+    
     <div class="text-typing-container">
       <div class="wrapper">
         <span  wire:ignore id="text-typing"></span>
@@ -18,10 +23,6 @@
             <img wire:click="capture" src="{{ $pokemon['sprite'] }}" alt="{{ $pokemon['name'] }}" />
             </a>
         </div>
-    @endif
-
-    @if($message)
-        <p class="mt-4 text-xl font-bold text-center">{{ $message }}</p>
     @endif
 
 <div class="actions grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -45,31 +46,5 @@
     @endforeach
 </div>
 
-
-
-<script>
-    let currentPokemonName = "{{ $pokemon['name'] ?? '' }}";
-
-    function playPokemonText(text) {
-        const textEl = document.querySelector("#text-typing");
-        textEl.textContent = "";
-
-        gsap.to(textEl, {
-            text: text,
-            duration: 2,
-            ease: "none",
-        });
-    }
-
-    // Au premier affichage
-    playPokemonText(currentPokemonName + " est apparu !");
-
-    // Quand un nouveau Pokémon arrive
-    window.addEventListener('pokemon-updated', (event) => {
-        const newName = event.detail.name;
-        playPokemonText(newName + " est apparu !");
-    });
-
-</script>
 
 </div>

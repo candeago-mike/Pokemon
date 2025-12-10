@@ -34,6 +34,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const pokeballBtn = link.querySelector(".pokeball-button");
             const linkRect = link.getBoundingClientRect();
 
+            // Si on reclique sur la même pokeball et qu'elle suit déjà : on stoppe
+            if (activeBall && activeBall.el === pokeball && following) {
+                resetBall(activeBall);
+                following = false;
+                activeBall = null;
+                return;
+            }
+
             // 1. remettre la précédente en place
             resetBall(activeBall);
             following = false;
@@ -66,4 +74,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         resetBall(activeBall);
         following = false;
     });
+
+    const pokemonLink = document.querySelector(".pokemon-link");
+    if (pokemonLink) {
+        pokemonLink.addEventListener("click", () => {
+            // la pokeball arrête de suivre et revient à sa position d'origine
+            resetBall(activeBall);
+            following = false;
+            activeBall = null;
+        });
+    }
 });

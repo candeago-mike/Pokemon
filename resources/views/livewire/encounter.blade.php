@@ -13,43 +13,37 @@
         </svg>
       </div>
     </div>
-            <div class="pokemon">
-                <a href="#" class="pokemon-link">
-                <img wire:click="capture" src="{{ $pokemon['sprite'] }}" alt="{{ $pokemon['name'] }}" />
-                </a>
-            </div>
-
+        <div class="pokemon">
+            <a href="#" class="pokemon-link">
+            <img wire:click="capture" src="{{ $pokemon['sprite'] }}" alt="{{ $pokemon['name'] }}" />
+            </a>
+        </div>
     @endif
 
     @if($message)
         <p class="mt-4 text-xl font-bold text-center">{{ $message }}</p>
     @endif
 
-<label class="block mb-2 font-semibold">Choisir une Pokéball :</label>
-
 <div class="actions grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
     @foreach($userPokeballs as $id => $ball)
         <a 
-            wire:click.prevent="selectPokeball({{ $id }})"
-            class="block p-4 rounded-xl cursor-pointer bg-white"
+        wire:click.prevent="selectPokeball({{ $id }})"
+        class="flex flex-col"
         >
-            <div class="flex items-center gap-3">
-
-                <img 
-                    src="{{ asset('images/' . $ball['name'] . '.png') }}" 
-                    alt="{{ $ball['name'] }}"
-                    class="pokeball w-12 h-12"
-                >
-
-                <div>
-                    <p>{{ $ball['quantity'] }}</p>
-                    <p>{{ $computedChances[$id] ?? 0 }}%</p>
-                </div>
+            <div class="q-text">
+                <p> x {{ $ball['quantity'] }}</p>
+            </div>        
+            <img 
+                src="{{ asset('images/' . $ball['name'] . '.png') }}" 
+                alt="{{ $ball['name'] }}"
+                class="pokeball"
+            >
+            <div class="chances-text">
+                <p>{{ $computedChances[$id] ?? 0 }}%</p>
             </div>
         </a>
     @endforeach
 </div>
-
 
 
 

@@ -1,6 +1,6 @@
 <div>
     <div class="py-4 px-2 w-[550px] absolute top-[10%] right-1/2 translate-x-1/2 transform border text-black rounded-lg bg-[#f1d17e] font-bold border-[5px] border-[#c9a64b] flex flex-col items-center">
-        <div class="right-0 top-[-50px] self-end rounded-md absolute text-xl text-white bg-[#EB2321] flex items-center justify-center ">
+        <div class="right-0 top-[-50px] self-end rounded-md absolute text-xl text-white bg-[#c64653] flex items-center justify-center ">
             <a class="cursor-pointer px-4 py-2">X</a>
         </div>
         @foreach($items as $item)

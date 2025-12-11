@@ -19,19 +19,22 @@
 
     @livewireStyles
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body>
 
     <!-- HEADER -->
-    <header class="p-4 ">
-    <div>
-        <a href="{{route('shop')}}" class="p-4 text-xl font-bold">Shop</a>
-    </div>        
+    <header class="p-4 ">       
     <div>
         <a href="{{route('my-pokemons')}}" class="p-4 text-xl font-bold">Pokédex</a>
     </div>
+    <div class="flex justify-between bg-white p-2 rounded shadow-md">
         @auth
         <livewire:piece-count />
         @endauth
+        <a href="{{route('shop')}}" class="text-xl font-bold">
+            <img src="{{ asset('images/shop-icon.png') }}" alt="Shop Icon" class="w-6 h-6">
+        </a>
+    </div>
+
     </header>
 
 

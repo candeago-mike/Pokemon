@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("text-typing.js chargé");
 
     gsap.registerPlugin(TextPlugin);
 
@@ -14,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function playText(message, onComplete) {
         if (currentTween) currentTween.kill();
+        textEl.textContent = ""; // <- reset avant animation
 
         currentTween = gsap.to(textEl, {
             text: { value: message },
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             duration: 0.3,
             onComplete: () => {
                 dialog.style.pointerEvents = "none";
+                textEl.textContent = "";
             },
         });
     }
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ? event.detail[0]
             : event.detail;
         const name = payload?.name;
-        console.log("pokemon-updated", payload);
 
         if (!name) return;
 

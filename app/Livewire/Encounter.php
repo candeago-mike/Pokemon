@@ -12,12 +12,12 @@ class Encounter extends Component
     public $pokemon;
     public $message = null;
     public $pokeball = [];
-public $selectedPokeballId = null;
-public $userPokeballs = [];
-public $computedChances = [];
-protected $listeners = [
-    'animation-finished' => 'animationFinished',
-];
+    public $selectedPokeballId = null;
+    public $userPokeballs = [];
+    public $computedChances = [];
+    protected $listeners = [
+        'animation-finished' => 'animationFinished',
+    ];
 
 public function mount()
 {
@@ -37,7 +37,6 @@ public function loadUserPokeballs()
     })->toArray();
 
     // sélection par défaut si disponible
-    $this->selectedPokeballId = array_key_first($this->userPokeballs);
     $this->updateChances();
 }
 public function loadRandomPokemon()
@@ -57,9 +56,11 @@ public function updatedSelectedPokeballId()
 {
     $this->updateChances();
 }
+
 public function selectPokeball($id)
 {
     $this->selectedPokeballId = $id;
+    $this->message = null;
 }
 
 public function updateChances()
@@ -126,7 +127,6 @@ public function capture()
 
     } else {
         $this->message = "Oh non ! Le Pokémon s’est échappé...";
-
     }
 
     // cet event sert juste à dire au JS d’afficher $message
@@ -138,23 +138,17 @@ public function capture()
     $user->pokeballs()->updateExistingPivot($this->selectedPokeballId, [
         'quantity' => $ballData['quantity'] - 1
     ]);
-
+$this->selectedPokeballId = null;
     $user->save();
 
-        
     $this->dispatch("pokeballsUpdated");
     $this->dispatch("piecesUpdated");
     // Recharger l’inventaire
     $this->loadUserPokeballs();
-
 }
-
 
 public function animationFinished()
 {
-    // on efface le message pour ne plus le rerendre dans le Blade
-    $this->message = null;
-
     // puis on charge un nouveau Pokémon
     $this->loadRandomPokemon();
 }

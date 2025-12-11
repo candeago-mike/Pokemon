@@ -1,5 +1,7 @@
-<div class="max-w-5xl mx-auto mt-10">
-
+<div class="p-4 mx-auto">
+    <div class="mb-6 mt-2">
+        <a href="/encounter" class="rounded-lg bg-[#f1d17e] font-bold border-[3px] border-[#c9a64b] p-2">Retour au jeu</a>    
+    </div>
     <h1 class="text-3xl font-bold mb-6">Mes Pokémon capturés</h1>
 
     @if($pokemons->isEmpty())

@@ -5,16 +5,31 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\ShopItem;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 
 class Shop extends Component
 {
     public $items;
     public $message;
+    public bool $isOpen = false;
+
+    #[On('openShop')]
+    public function open()
+    {
+        $this->isOpen = true;
+    }
+
+    public function close()
+    {
+        $this->isOpen = false;
+        $this->message = null; // ← IMPORTANT
+    }
 
     public function mount()
     {
         $this->items = ShopItem::all();
     }
+
 
 public function buy($id)
 {
@@ -41,16 +56,21 @@ public function buy($id)
         // Ajouter dans l’inventaire
         $user->pokeballs()->attach($item->id, ['quantity' => 1]);
     }
-    
-    $this->dispatch("pokeballsUpdated");
-    $this->dispatch("piecesUpdated");
-    $this->message = "{$item->name} achetée !";
-}
 
+    $user->refresh();
+    // informer les autres composants
+    $this->dispatch('piecesUpdated');
+    $this->dispatch('pokeballsUpdated');
+
+    $this->message = "{$item->name} achetée !";
+
+}
 
 
     public function render()
     {
-        return view('livewire.shop')->layout('livewire.layout.app');
+        return view('livewire.shop', [
+            'items' => $this->items,
+        ]);
     }
 }

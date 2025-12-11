@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-        <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script defer src="//unpkg.com/alpinejs"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
@@ -22,17 +23,18 @@
 <body>
 
     <!-- HEADER -->
-    <header class="p-4 ">       
-    <div>
-        <a href="{{route('my-pokemons')}}" class="p-4 text-xl font-bold">Pokédex</a>
+    <header class="p-4">       
+    <div class="bg-[#16506a] gap-2 text-white flex items-center w-[150px] rounded shadow-md p-2 mb-4">            
+        <img src="{{ asset('images/Pokéball.png') }}" alt="pokedex Icon" class="w-6 h-6">
+        <a href="{{route('my-pokemons')}}" class="text-xl font-bold">Pokédex</a>
     </div>
     <div class="flex justify-between bg-white p-2 rounded shadow-md">
         @auth
         <livewire:piece-count />
         @endauth
-        <a href="{{route('shop')}}" class="text-xl font-bold">
+            <button x-data @click="$dispatch('openShop')">
             <img src="{{ asset('images/shop-icon.png') }}" alt="Shop Icon" class="w-6 h-6">
-        </a>
+        </button>
     </div>
 
     </header>
@@ -42,7 +44,8 @@
     <main class="container mx-auto px-4">
         {{ $slot }}
     </main>
-
+    <livewire:shop />
     @livewireScripts
+
 </body>
 </html>

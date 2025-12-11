@@ -73,7 +73,7 @@ public function updateChances()
     foreach ($this->userPokeballs as $id => $ball) {
         if($baseRate > 100){
             $chance = ($baseRate / 255) *30* $ball['bonus'];
-            $this->computedChances[$id] = round($chance, 2);
+            $this->computedChances[$id] =  $chance = min(100, round($chance, 2));
         }else{
             $chance = ($baseRate / 255) *60* $ball['bonus'];
             $this->computedChances[$id] = round($chance, 2);
@@ -102,7 +102,6 @@ public function capture()
     // Calcul de la probabilité avec bonus
     $baseRate = $this->pokemon['capture_rate'];
     $chance = ($baseRate / 255) * 50 * $ballData['bonus']; // bonus appliqué
-
     $roll = rand(0, 100);
 
     if ($roll <= $chance) {

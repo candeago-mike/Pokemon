@@ -27,6 +27,31 @@
 
 <div class="actions grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
     @foreach($userPokeballs as $id => $ball)
+
+    @if($ball['quantity'] <= 0)
+                <a 
+                    class="flex flex-col pointer-events-none opacity-50"
+                >
+                    <div class="q-text">
+                        <p> x {{ $ball['quantity'] }}</p>
+                    </div>        
+                    <img 
+                        src="{{ asset('images/' . $ball['name'] . '.png') }}" 
+                        alt="{{ $ball['name'] }}"
+                        class="pokeball"
+                    >
+            @if($computedChances[$id] >= 100)
+                <div class="chances-text">
+                    <p>100%</p>
+                </div>
+            @else
+                <div class="chances-text">
+                    <p>{{ $computedChances[$id] ?? 0 }}%</p>
+                </div>
+            @endif
+                </a>
+    @else
+
         <a 
         wire:click.prevent="selectPokeball({{ $id }})"
         class="flex flex-col"
@@ -39,10 +64,17 @@
                 alt="{{ $ball['name'] }}"
                 class="pokeball"
             >
-            <div class="chances-text">
-                <p>{{ $computedChances[$id] ?? 0 }}%</p>
-            </div>
+            @if($computedChances[$id] >= 100)
+                <div class="chances-text">
+                    <p>100%</p>
+                </div>
+            @else
+                <div class="chances-text">
+                    <p>{{ $computedChances[$id] ?? 0 }}%</p>
+                </div>
+            @endif
         </a>
+    @endif
     @endforeach
 </div>
 

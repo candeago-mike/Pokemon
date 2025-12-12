@@ -77,7 +77,7 @@
     @endif
     @endforeach
 
-    <button wire:click="loadRandomPokemon">Ne pas capturer</button>
+    <button wire:click="loadRandomPokemon" class="rounded-lg bg-[#f1d17e] font-bold border-[3px] border-[#c9a64b] p-2 h-1/2 mt-[14%]">Ne pas capturer</button>
 </div>
 
 

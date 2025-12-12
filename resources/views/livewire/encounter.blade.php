@@ -76,6 +76,8 @@
         </a>
     @endif
     @endforeach
+
+    <button wire:click="loadRandomPokemon">Ne pas capturer</button>
 </div>
 
 

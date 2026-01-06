@@ -4,23 +4,41 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Pokemons;
 use App\Livewire\Encounter;
 use App\Livewire\MyPokemons;
+use App\Livewire\Shop;
 
-Route::get('/my-pokemons', MyPokemons::class)->middleware('auth')->name('my-pokemons');
+/*
+|--------------------------------------------------------------------------
+| Routes protégées (connexion obligatoire)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
 
-Route::view('/', 'welcome');
+    Route::get('/my-pokemons', MyPokemons::class)->name('my-pokemons');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    Route::get('/pokemons', Pokemons::class)->name('pokemons');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+    Route::get('/encounter', Encounter::class)->name('encounter');
 
-Route::get('/pokemons', Pokemons::class)->middleware('auth')->name('pokemons');
+    Route::get('/shop', Shop::class)->name('shop');
 
-Route::get('/encounter', Encounter::class)->middleware('auth')->name('encounter');
+    Route::view('/profile', 'profile')->name('profile');
 
-Route::get('/shop', \App\Livewire\Shop::class)->middleware('auth')->name('shop');
+});
 
+/*
+|--------------------------------------------------------------------------
+| Routes désactivées / supprimées
+|--------------------------------------------------------------------------
+*/
+// ❌ Page d'accueil désactivée
+// Route::view('/', 'welcome');
+
+// ❌ Dashboard désactivé
+// Route::view('/dashboard', 'dashboard')->name('dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| Auth (login, register, password reset, etc.)
+|--------------------------------------------------------------------------
+*/
 require __DIR__.'/auth.php';

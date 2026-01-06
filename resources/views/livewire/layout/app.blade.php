@@ -11,12 +11,11 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-@vite([
-    'resources/css/app.css',
-    'resources/js/app.js',
-    'resources/js/script.js',
-    'resources/js/text-typing.js',
-])
+<link rel="stylesheet" href="{{ asset('app.css') }}">
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/bootstrap.js') }}" defer></script>
+<script src="{{ asset('js/text-typing.js') }}" defer></script>
+<script src="{{ asset('js/script.js') }}" defer></script>
 
     @livewireStyles
 </head>
